@@ -1,6 +1,6 @@
 import { OUT_DIR } from './constants';
 import { getEmojiList } from './utils/slack';
-import { downloadFile } from './utils/file';
+import { downloadFile, getFileInfoFromFilePath } from './utils/file';
 
 const filterAliasEmoji = (emojiUrl: string) => !emojiUrl.includes('alias');
 
@@ -15,8 +15,7 @@ async function download() {
   const emojiList = Object.entries(emojiMap).filter(([, url]: [string, string]) => filterAliasEmoji(url));
   
   await Promise.all(emojiList.map(async ([filename, url]) => {
-    const fields = url.split('.');
-    const extension = fields[fields.length - 1];
+    const { extension } = getFileInfoFromFilePath(filename);
     const dest = `${OUT_DIR}/${filename}.${extension}`;
 
     await downloadFile(dest, url);
