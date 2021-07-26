@@ -1,0 +1,31 @@
+{
+  "name": "slack-emoji-to-mattermost",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "download": "ts-node ./src/download.ts",
+    "upload": "ts-node ./src/upload.ts",
+    "clean": "rm -rfv ./out/*",
+    "migrate": "yarn download && yarn upload"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@slack/web-api": "^6.3.0",
+    "@types/node-fetch": "^2.5.12",
+    "dotenv": "^10.0.0",
+    "form-data": "^4.0.0",
+    "node-fetch": "^2.6.1",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.25.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.2.1"
+  }
+}
