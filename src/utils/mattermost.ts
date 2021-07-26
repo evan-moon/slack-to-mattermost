@@ -25,7 +25,7 @@ export async function uploadToMattermostEmoji (filePath: string) {
     return fetch(`${MATTERMOST_HOST}/api/v4/emoji`, {
       method: 'POST',
       headers: {
-        Authorization: MATTERMOST_ADMIN_PAT ?? '',
+        Authorization: `Bearer ${MATTERMOST_ADMIN_PAT ?? ''}`,
         ...headers
       },
       body: formData,
