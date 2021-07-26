@@ -13,15 +13,17 @@ async function download() {
   }
 
   const emojiList = Object.entries(emojiMap).filter(([, url]: [string, string]) => filterAliasEmoji(url));
-  
-  await Promise.all(emojiList.map(async ([filename, url]) => {
-    const { extension } = getFileInfoFromFilePath(filename);
-    const dest = `${OUT_DIR}/${filename}.${extension}`;
 
-    await downloadFile(dest, url);
-    console.log('Download Finished -> ', dest);
-  }));
-  
+  await Promise.all(
+    emojiList.map(async ([filename, url]) => {
+      const { extension } = getFileInfoFromFilePath(filename);
+      const dest = `${OUT_DIR}/${filename}.${extension}`;
+
+      await downloadFile(dest, url);
+      console.log('Download Finished -> ', dest);
+    })
+  );
+
   console.log('All emojis are Downloaded');
 }
 
