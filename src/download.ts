@@ -16,7 +16,7 @@ async function download() {
 
   await Promise.all(
     emojiList.map(async ([filename, url]) => {
-      const { extension } = getFileInfoFromFilePath(filename);
+      const { extension } = getFileInfoFromFilePath(url);
       const dest = `${OUT_DIR}/${filename}.${extension}`;
 
       await downloadFile(dest, url);

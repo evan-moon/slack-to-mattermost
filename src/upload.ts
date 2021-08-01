@@ -9,8 +9,9 @@ async function upload() {
   await Promise.all(
     filePaths.map(async filename => {
       const path = `${OUT_DIR}/${filename}`;
-      await uploadToMattermostEmoji(path);
-      console.log('Uplload Finished -> ', path);
+      const response = await uploadToMattermostEmoji(path);
+      console.log(response);
+      console.log('Upload Finished -> ', path);
     })
   );
 
