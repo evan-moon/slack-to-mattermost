@@ -1,9 +1,9 @@
 # Slack to Mattermost 📦
-Small script to move Slack emojis to Mattermost.
+Small script to move to Mattermost from Slack.
 
 ## Installation
 ```sh
-$ git clone https://github.com/evan-moon/slack-emoji-to-mattermost.git
+$ git clone https://github.com/evan-moon/slack-to-mattermost.git
 $ cd slack-emoji-to-mattermost
 $ yarn
 ```
@@ -13,7 +13,7 @@ This script uses Slack and Mattermost's API to move your emojis.
 Therefore you have to provide some variables to authenticate before move your emojis.
 
 ```sh
-$ cd slack-emoji-to-mattermost
+$ cd slack-to-mattermost
 $ touch .env
 ```
 
@@ -39,11 +39,7 @@ If you don't know how to generate this tokens, please check these docs.
 
 # Migration
 ```sh
-$ yarn download # Download all Slack custom emojis to your local machine.
-$ yarn upload # Upload all emojis you downloaded from Slack to Mattermost.
-
+$ yarn migrate:emoji
 # or...
-
-$ yarn migrate # yarn download && yarn upload
-
+$ yarn migrate:users
 ```
