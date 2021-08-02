@@ -22,9 +22,7 @@
     "prettier": "^2.2.1"
   },
   "scripts": {
-    "download": "ts-node ./src/download.ts",
-    "upload": "ts-node ./src/upload.ts",
-    "clean": "rm -rfv ./out/*",
-    "migrate": "yarn download && yarn upload"
+    "migrate:emoji": "ts-node ./src/emoji.ts",
+    "migrate:users": "ts-node ./src/users.ts"
   }
 }

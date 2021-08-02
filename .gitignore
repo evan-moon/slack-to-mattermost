@@ -2,5 +2,6 @@ node_modules
 .env
 
 # Out Dir
-out/*
-!out/.gitkeep
+out/emoji/*
+out/users/*
+!out/**/.gitkeep
