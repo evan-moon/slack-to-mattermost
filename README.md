@@ -1,4 +1,4 @@
-# Slack emoji to Mattermost 📦
+# Slack to Mattermost 📦
 Small script to move Slack emojis to Mattermost.
 
 ## Installation
