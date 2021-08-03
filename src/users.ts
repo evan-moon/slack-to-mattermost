@@ -1,34 +1,41 @@
+import { fetchLubyconUsers, getPositionString, isEmptyName, isEnglishName } from './utils/users';
 import { OUT_DIR } from './constants';
 import { downloadFile, getFileInfoFromFilePath } from './utils/file';
 import { getMattermostUsers, setMattermostUserProfile, updateMattermostUser } from './utils/mattermost';
 import { getSlackUsers } from './utils/slack';
 
+function getSlackUsername(displayName?: string, realName?: string) {
+  return isEnglishName(displayName ?? 'a') || isEmptyName(displayName ?? '') ? realName : displayName;
+}
+
 async function main() {
   const slackUsers = await getSlackUsers();
   const mattermostUsers = await getMattermostUsers();
-  console.log(mattermostUsers.length);
+  const lubyconUsers = await fetchLubyconUsers();
+
   const users =
-    slackUsers?.map(user => {
+    slackUsers?.map(slackUsers => {
       return {
-        slack: user,
-        mattermost: mattermostUsers.find(mattermostUser => mattermostUser.email === user.email),
+        slack: slackUsers,
+        mattermost: mattermostUsers.find(user => user.email === slackUsers.email),
+        lubycon: lubyconUsers.find(user => user.email === slackUsers.email),
       };
     }) ?? [];
 
   console.log(users);
 
   await Promise.all(
-    users.map(async ({ slack, mattermost }) => {
+    users.map(async ({ slack, mattermost, lubycon }) => {
       const { extension } = getFileInfoFromFilePath(slack.profileImage);
       const dest = `${OUT_DIR.users}/${slack.name}.${extension}`;
-      console.log(dest);
-
-      const name = /[a-zA-Z]/.test(slack?.real_name ?? 'a') ? slack.profile?.display_name : slack.real_name;
+      const name = lubycon?.name ?? getSlackUsername(slack.profile?.display_name, slack.real_name);
+      const [lastName, ...firstNames] = name?.split('') ?? [];
 
       await updateMattermostUser(mattermost?.id ?? '', {
         nickname: name,
-        first_name: '',
-        last_name: '',
+        first_name: firstNames.join(''),
+        last_name: lastName,
+        position: lubycon != null ? getPositionString(lubycon) : '',
       });
 
       try {
