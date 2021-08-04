@@ -10,7 +10,7 @@ export interface LubyconUser {
 }
 
 export async function fetchLubyconUsers(): Promise<LubyconUser[]> {
-  const response = await fetch('https://assets.lubycon.io/data/lubyconUsers.json');
+  const response = await fetch('https://assets.lubycon.io/data/lubyconUsers-v2.json');
   return response.json();
 }
 
